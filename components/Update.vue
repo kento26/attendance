@@ -32,6 +32,22 @@
           @click="edit"
           >
     </div>
+
+    <div class="formUnit__item">
+      <input
+        type="submit"
+        value="START"
+        @click="timeAction('morning')"
+        >
+    </div>
+
+    <div class="formUnit__item">
+      <input
+        type="submit"
+        value="END"
+        @click="timeAction('night')"
+        >
+    </div>
   </div>
 </template>
 
@@ -40,7 +56,8 @@
     data() {
       return {
         add: '',
-        name: ''
+        name: '',
+        start: '',
       }
     },
 
@@ -58,6 +75,18 @@
            collectionName: 'users',
            addDataVal: this.name,
            addDataKey: 'userName'
+        })
+      },
+
+      timeAction(timeText) {
+        const today = new Date();
+        const key = today.getFullYear() + '_' + (Number(today.getMonth()) + 1) + '_'+ today.getDate()
+        const time = today.getHours() + ':' + today.getMinutes()
+
+        this.$store.dispatch('editUserDoc', {
+           collectionName: 'users',
+           addDataVal: time,
+           addDataKey: 'time_' + String(key) + '.' + timeText
         })
       },
     }

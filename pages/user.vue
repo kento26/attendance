@@ -2,7 +2,12 @@
   <div class="">
     <Signout />
 
-    <p>{{ userDoc }}</p>
+    <p>name</p>
+    <p>{{ userName }}</p>
+    <!-- <p>{{ userDoc }}</p> -->
+
+    <p>time</p>
+    <p>{{ time }}</p>
 
     <Update />
   </div>
@@ -15,7 +20,25 @@ import { mapState } from 'vuex'
     Signout: () => import('~/components/Signout'),
     Update: () => import('~/components/Update'),
 
-    computed: mapState(['userDoc'])
+    computed: {
+      ...mapState(['userDoc']),
+
+      ...mapState({
+        time: state => {
+          const {userDoc} = state
+          const reg = new RegExp('^time_','g');
+          return Object.keys(userDoc).reduce((r, o) => {
+            if(o.match(reg)) {
+              userDoc[o].date = o
+              r.push(userDoc[o])
+            }
+            return r
+          }, [])
+        },
+
+        userName: state => state.userDoc.userName
+      })
+    }
   }
 </script>
 

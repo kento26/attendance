@@ -8,7 +8,6 @@ export const strict = false
 export const state = () => ({
   // 認証用のデータ
   user: null,
-
   // 名前など認証以外のデータ
   userDoc: null,
 })
@@ -112,6 +111,7 @@ export const actions = {
       console.log(error)
     })
   },
+
 }
 
 export const getters = {
