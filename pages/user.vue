@@ -1,39 +1,21 @@
 <template>
   <div class="">
-    <signout />
+    <Signout />
+
+    <p>{{ userDoc }}</p>
+
+    <Update />
   </div>
 </template>
 
 <script>
-import firebase from '~/plugins/firebase'
-// const db = firebase.firestore();
-// const todoRef = db.collection('user')
-// console.log(todoRef);
+import { mapState } from 'vuex'
 
   export default {
-    signout: () => import('~/components/Signout'),
+    Signout: () => import('~/components/Signout'),
+    Update: () => import('~/components/Update'),
 
-   async created() {
-     const user = this.$store.getters.user
-    //  console.log(user.uid);
-
-    var userDoc = await firebase.firestore().collection('users').doc(user.uid).get();
-
-    // console.log(userDoc);
-      if (!userDoc.exists) {
-        // Firestore にユーザー用のドキュメントが作られていなければ作る
-        await userDoc.ref.set({
-          screen_name: user.uid,
-          display_name: '名無しさん',
-          created_at: firebase.firestore.FieldValue.serverTimestamp(),
-        });
-      } else {
-        console.log(userDoc.data());
-        // await userDoc.then((doc) => {
-        //   console.log("Document data:", doc.data());
-        // })
-      }
-    },
+    computed: mapState(['userDoc'])
   }
 </script>
 

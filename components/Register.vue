@@ -12,7 +12,7 @@
         >
       </div>
 
-      <!-- <div class="formUnit__item">
+      <div class="formUnit__item">
         <label class="formUnit-item-text" for="name">USER NAME</label>
         <input
           type="text"
@@ -20,7 +20,7 @@
           id="name"
           v-model="name"
           >
-      </div> -->
+      </div>
 
       <div class="formUnit__item">
         <label class="formUnit-item-text" for="password">PASSWORD</label>
@@ -51,8 +51,7 @@
         email: '',
         password: '',
         message: '',
-        // test@test.com
-        // testtesttest
+        name: ''
       }
     },
 
@@ -67,9 +66,17 @@
               email: this.email,
               password: this.password
           })
+          .then(({user}) => {
+             this.$store.dispatch('registerUserDoc', {
+                 collectionName: 'users',
+                 uniqueID: user.uid,
+                 userName: this.name
+                })
+          })
           .then(() => {
               this.email = ''
               this.password = ''
+              this.name = ''
               this.$router.push({
                   name: 'user',
                   // params: {

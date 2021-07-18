@@ -40,8 +40,6 @@
       return {
         email: '',
         password: '',
-        // test@test.com
-        // testtesttest
       }
     },
 

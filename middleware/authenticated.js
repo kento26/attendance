@@ -1,3 +1,7 @@
+/**
+ * ログインをしていない状態でindexページ以外にいる場合に
+ * リダイレクト
+ */
 export default ({
   store,
   route,
