@@ -69,19 +69,19 @@
 
    data() {
       return {
-        currentPage: 'dashboard',
+        currentPage: this.$route.path.replace('/', '')
       }
     },
 
-     methods: {
-      changePage(page) {
-        this.currentPage = page
-      },
-
-      signout() {
-        this.$store.dispatch('signout')
-      }
+   methods: {
+    changePage(page) {
+      this.currentPage = page
     },
+
+    signout() {
+      this.$store.dispatch('signout')
+    }
+   },
 
    computed: {
     faAddressCard () {

@@ -1,18 +1,17 @@
 <template>
   <div class="">
     <p>テーブル</p>
-    <Signout />
 
-    <p>name</p>
-    <p>{{ userName }}</p>
-    <!-- <p>{{ userDoc }}</p> -->
+    <!-- <p>{{ time }}</p> -->
 
-    <p>time</p>
-    <p>{{ time }}</p>
+    <div class="" v-for="item in time" :key="item.date">
+      <p>{{ item.date }}</p>
+      <p>{{ item.workStart }}</p>
+      <p>{{ item.workEnd }}</p>
+      <p>{{ item.breakStart }}</p>
+      <p>{{ item.breakEnd }}</p>
+    </div>
 
-    <Update />
-
-    <Delete />
   </div>
 </template>
 
@@ -22,13 +21,7 @@ import { mapState } from 'vuex'
   export default {
     layout: 'user',
 
-    Signout: () => import('~/components/Signout'),
-    Update: () => import('~/components/Update'),
-    Delete: () => import('~/components/Delete'),
-
     computed: {
-      ...mapState(['userDoc']),
-
       ...mapState({
         time: state => {
           const {userDoc} = state
@@ -40,10 +33,8 @@ import { mapState } from 'vuex'
               r.push(userDoc[o])
             }
             return r
-          }, []) : []
-        },
-
-        userName: state => state.userDoc?.userName
+          }, []).reverse() : []
+        }
       })
     }
   }
