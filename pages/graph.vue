@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    <p>グラフ</p>
     <Signout />
 
     <p>name</p>

@@ -59,7 +59,12 @@ export default {
   modules: [
     '@nuxtjs/style-resources',
     '@nuxtjs/dotenv',
+    'nuxt-fontawesome',
   ],
+
+  fontawesome: {
+    component: 'fa'
+  },
 
   styleResources: {
     scss: ['~/assets/scss/modules/_variable.scss'],

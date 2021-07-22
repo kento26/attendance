@@ -78,7 +78,7 @@
               this.password = ''
               this.name = ''
               this.$router.push({
-                  name: 'user',
+                  name: 'dashboard',
                   // params: {
                   //     dashboard_msg: true,
                   //     dashboard_msg_text:

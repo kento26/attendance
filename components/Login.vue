@@ -57,7 +57,7 @@
           .then(() => {
               this.email = ''
               this.password = ''
-              this.$router.push({name: 'user'})
+              this.$router.push({name: 'dashboard'})
           })
           .catch((err) => {
             // this.setErrorMessage(err.code)

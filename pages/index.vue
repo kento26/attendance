@@ -51,7 +51,7 @@
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .indexPage {
     width: 100%;
     display: flex;
