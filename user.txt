@@ -10,3 +10,6 @@ AntS
 testtest@test.com
 sample02
 testrtsrgvtgdthth
+
+
+topエラーを右のキャラクターに履かせる。

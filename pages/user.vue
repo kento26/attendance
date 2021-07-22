@@ -19,6 +19,8 @@
 import { mapState } from 'vuex'
 
   export default {
+    layout: 'user',
+
     Signout: () => import('~/components/Signout'),
     Update: () => import('~/components/Update'),
     Delete: () => import('~/components/Delete'),
@@ -30,16 +32,17 @@ import { mapState } from 'vuex'
         time: state => {
           const {userDoc} = state
           const reg = new RegExp('^time_','g');
-          return Object.keys(userDoc).reduce((r, o) => {
+
+          return userDoc ? Object.keys(userDoc).reduce((r, o) => {
             if(o.match(reg)) {
               userDoc[o].date = o
               r.push(userDoc[o])
             }
             return r
-          }, [])
+          }, []) : []
         },
 
-        userName: state => state.userDoc.userName
+        userName: state => state.userDoc?.userName
       })
     }
   }
