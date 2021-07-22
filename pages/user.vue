@@ -10,6 +10,8 @@
     <p>{{ time }}</p>
 
     <Update />
+
+    <Delete />
   </div>
 </template>
 
@@ -19,6 +21,7 @@ import { mapState } from 'vuex'
   export default {
     Signout: () => import('~/components/Signout'),
     Update: () => import('~/components/Update'),
+    Delete: () => import('~/components/Delete'),
 
     computed: {
       ...mapState(['userDoc']),

@@ -1,3 +1,12 @@
 test@test.com
 sample
 test0129384756
+
+AntS
+このサービスはアリの様に働く従業員の勤怠を管理する目的で作られています。
+
+
+
+testtest@test.com
+sample02
+testrtsrgvtgdthth

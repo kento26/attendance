@@ -41,9 +41,14 @@ export const actions = {
     return auth().signInWithEmailAndPassword(email, password)
   },
 
-  signout() {
+  signout({
+    commit
+  }) {
     auth().signOut()
       .then(() => {
+        //stateを空に
+        commit('setUser', {})
+        commit('setUserDoc', {})
         this.$router.push({
           name: 'index'
         })
@@ -110,6 +115,36 @@ export const actions = {
     }).catch(error => {
       console.log(error)
     })
+  },
+
+  /**
+   * ユーザー削除
+   */
+  deleteUser({
+    commit,
+    state
+  }, {
+    collectionName
+  }) {
+    const {
+      userDoc: {
+        uniqueID: ID
+      }
+    } = state
+    const DB = firestore().collection(collectionName).doc(ID)
+
+    //データベース 認証データを削除
+    Promise.all([DB.delete(ID), auth().currentUser.delete()]).then(results => {
+
+      //stateを空に
+      commit('setUser', {})
+      commit('setUserDoc', {})
+      this.$router.push({
+        name: 'index'
+      })
+    }).catch(reject => {
+      console.log(reject);
+    });
   },
 
 }
