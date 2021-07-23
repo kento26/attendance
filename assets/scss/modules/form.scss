@@ -56,3 +56,31 @@
     }
   }
 }
+
+.selectBox {
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 8%;
+    background: url(~/assets/image/icon/icon_arrow_black.svg) no-repeat center center / contain;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+  }
+
+  select {
+    padding: 10px 20px;
+    background-color: #fff;
+    width: 180px;
+    box-sizing: border-box;
+    border-radius: .3em;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 2px 2px 2px 2px #00000010;
+  }
+}
