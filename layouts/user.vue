@@ -105,7 +105,7 @@
     },
 
     ...mapState({
-      userName: state => state.userDoc?.userName
+      userName: state => state.userDoc.userName
     })
   }
 }
@@ -195,7 +195,7 @@
         ul {
           li {
             +li {
-              margin-top: 15px;
+              margin-top: 5px;
             }
 
             &.isCurrent {

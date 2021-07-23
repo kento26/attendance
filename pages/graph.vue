@@ -1,52 +1,113 @@
 <template>
-  <div class="">
-    <p>グラフ</p>
-    <Signout />
+  <div class="graph">
+    <div class="graph__nav">
+      <p class="graph_nav_text">日付を選択</p>
 
-    <p>name</p>
-    <p>{{ userName }}</p>
-    <!-- <p>{{ userDoc }}</p> -->
+      <div class="selectBox">
+        <select v-model="yearSelected">
+          <option v-for="yearItem in year" :value="yearItem.value" :key="yearItem.value">
+            {{ yearItem.label }}
+          </option>
+        </select>
+      </div>
 
-    <p>time</p>
-    <p>{{ time }}</p>
+      <div class="selectBox">
+        <select v-model="monthSelected">
+          <option v-for="monthItem in month" :value="monthItem.value" :key="monthItem.value">
+            {{ monthItem.label }}
+          </option>
+        </select>
+      </div>
+    </div>
 
-    <Update />
-
-    <Delete />
+    <div class="graph__content">
+      <LineChart :chart-data="datacollection" :options="options" />
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+  import selectTime from '~/mixins/selectTime'
 
   export default {
     layout: 'user',
+    mixins: [ selectTime ],
 
-    Signout: () => import('~/components/Signout'),
-    Update: () => import('~/components/Update'),
-    Delete: () => import('~/components/Delete'),
+    components: {
+      LineChart: () => import('~/components/user/LineChart'),
+    },
 
-    computed: {
-      ...mapState(['userDoc']),
+     data () {
+      return {
+        datacollection: {},
+        options: {},
+      }
+    },
 
-      ...mapState({
-        time: state => {
-          const {userDoc} = state
-          const reg = new RegExp('^time_','g');
+    methods: {
+      setTimeData() {
+        const selectData = this.getSelectDate
 
-          return userDoc ? Object.keys(userDoc).reduce((r, o) => {
-            if(o.match(reg)) {
-              userDoc[o].date = o
-              r.push(userDoc[o])
+        const setData = selectData.reduce((r, {date, workStart, workEnd}) => {
+          if(workStart && workEnd) {
+              const [fromHour, fromMinute] = workStart.split(':')
+              const [toHour, toMinute] = workEnd.split(':')
+              let diffTime = toHour - fromHour + (toMinute - fromMinute) / 60.0
+
+              diffTime = (Math.round(diffTime * 100) / 100) -1
+              r.labels.push(`${date.split('_')[2]}/${date.split('_')[3]}`)
+              r.time.push(diffTime)
             }
-            return r
-          }, []) : []
-        },
 
-        userName: state => state.userDoc?.userName
-      })
+          return r
+        }, {labels: [], time:[]})
+
+        this.datacollection = {
+          labels: setData.labels,
+          datasets:[{
+            label: '労働時間 (Hour)',
+            data: setData.time,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            borderWidth: 1,
+          }],
+        }
+      }
+    },
+
+    watch: {
+      getSelectDate: function() {
+        this.setTimeData()
+      }
     }
   }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+  .graph {
+    display: flex;
+
+    &__nav {
+      width: 200px;
+      margin: 30px 20px 0 0;
+
+      .graph_nav_text {
+         border-radius: .3em;
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+
+      .selectBox {
+        +.selectBox {
+          margin-top: 20px;
+        }
+      }
+    }
+
+    &__content {
+       width: 700px;
+       max-width: 700px;
+    }
+  }
+</style>

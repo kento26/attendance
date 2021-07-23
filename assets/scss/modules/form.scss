@@ -59,6 +59,7 @@
 
 .selectBox {
   position: relative;
+  width: 180px;
 
   &::before {
     content: "";
@@ -74,9 +75,9 @@
   }
 
   select {
+    width: 100%;
     padding: 10px 20px;
     background-color: #fff;
-    width: 180px;
     box-sizing: border-box;
     border-radius: .3em;
     font-weight: 600;
