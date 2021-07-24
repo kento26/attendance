@@ -18,6 +18,7 @@
          type="password"
          name="password"
          id="password"
+         placeholder="6 characters or more"
          v-model="password"
          >
       </div>
@@ -31,11 +32,19 @@
       </div>
 
       <p class="formUnit__text" @click="handleStatus">登録はこちら</p>
+
+       <div class="formUnit__errorArea" v-if="formatErrorMessage.length">
+        <p class="errorText" v-for="item in formatErrorMessage" :key="item">{{ item }}</p>
+      </div>
     </div>
 </template>
 
 <script>
-  export default {
+ import form from '~/mixins/form'
+
+ export default {
+    mixins: [ form ],
+
     data() {
       return {
         email: '',
@@ -49,21 +58,34 @@
        },
 
        login() {
-        this.$store
-          .dispatch('signInWithEmail', {
-              email: this.email,
-              password: this.password
-          })
-          .then(() => {
-              this.email = ''
-              this.password = ''
-              this.$router.push({name: 'dashboard'})
-          })
-          .catch((err) => {
-            // this.setErrorMessage(err.code)
-            console.log(err)
-          })
-      },
-     }
-  }
+        //エラーメッセージの配列を空に
+        this.deleteErrorMessage()
+
+        //VALIDATION
+        //PASSWORD
+        this.validEmpty(this.password) && this.setErrorMessage('emptyText')
+        this.lengthText(this.password) && this.setErrorMessage('lengthPassword')
+
+        //EMAIL
+        this.validEmpty(this.email) && this.setErrorMessage('emptyText')
+        this.validEmail(this.email) && this.setErrorMessage('emailError')
+
+        if(!this.errorMessage.length) {
+          this.$store
+            .dispatch('signInWithEmail', {
+                email: this.email,
+                password: this.password
+            })
+            .then(() => {
+                this.email = ''
+                this.password = ''
+                this.$router.push({name: 'dashboard'})
+            })
+            .catch((err) => {
+              this.setErrorMessage(err.code)
+            })
+          }
+        }
+      }
+    }
 </script>

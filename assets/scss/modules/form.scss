@@ -4,6 +4,7 @@
   font-family: 'Roboto', sans-serif;
   width: 100%;
   box-sizing: border-box;
+  position: relative;
 
   &__title {
     font-size: 22px;
@@ -24,9 +25,26 @@
     }
   }
 
+  &__errorArea {
+    position: absolute;
+    bottom: -12%;
+
+    .errorText {
+      font-size: 14px;
+      color: #f56161;
+      line-height: 1.65;
+    }
+  }
+
   &__item {
     +.formUnit__item {
       margin-top: 40px;
+    }
+
+    &.is-box-shadow {
+      input {
+        box-shadow: 2px 2px 2px 2px #00000010;
+      }
     }
 
     .formUnit-item-text {
@@ -34,6 +52,11 @@
       color: #454545;
       font-size: 18px;
       display: block;
+
+      &.jp-text {
+        font-weight: 600;
+        font-size: 16px;
+      }
     }
 
     input {
@@ -53,6 +76,12 @@
         background-color: #5aa7da;
         color: #fff;
       }
+    }
+
+    .errorText {
+      font-size: 14px;
+      color: #f56161;
+      line-height: 1.65;
     }
   }
 }

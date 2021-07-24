@@ -1,52 +1,34 @@
 <template>
-  <div class="">
-    <p>設定</p>
-    <Signout />
+  <div class="setting">
+    <div class="setting__row">
+       <div class="setting__unit">
+        <Delete />
+      </div>
 
-    <p>name</p>
-    <p>{{ userName }}</p>
-    <!-- <p>{{ userDoc }}</p> -->
-
-    <p>time</p>
-    <p>{{ time }}</p>
-
-    <Update />
-
-    <Delete />
+       <div class="setting__unit">
+        <Edit />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
   export default {
     layout: 'user',
 
-    Signout: () => import('~/components/Signout'),
-    Update: () => import('~/components/Update'),
     Delete: () => import('~/components/Delete'),
-
-    computed: {
-      ...mapState(['userDoc']),
-
-      ...mapState({
-        time: state => {
-          const {userDoc} = state
-          const reg = new RegExp('^time_','g');
-
-          return userDoc ? Object.keys(userDoc).reduce((r, o) => {
-            if(o.match(reg)) {
-              userDoc[o].date = o
-              r.push(userDoc[o])
-            }
-            return r
-          }, []) : []
-        },
-
-        userName: state => state.userDoc?.userName
-      })
-    }
+    Edit: () => import('~/components/Edit'),
   }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+  .setting {
+    &__row {
+      display: flex;
+    }
+
+    &__unit {
+      width: 50%;
+    }
+  }
+</style>

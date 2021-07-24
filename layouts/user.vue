@@ -105,7 +105,7 @@
     },
 
     ...mapState({
-      userName: state => state.userDoc.userName
+      userName: state => state.userDoc?.userName
     })
   }
 }

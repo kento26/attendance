@@ -29,6 +29,7 @@
          name="password"
          id="password"
          v-model="password"
+         placeholder="6 characters or more"
          >
       </div>
 
@@ -41,16 +42,23 @@
       </div>
 
       <p class="formUnit__text" @click="handleStatus">ログインはこちら</p>
+
+      <div class="formUnit__errorArea" v-if="formatErrorMessage.length">
+        <p class="errorText" v-for="item in formatErrorMessage" :key="item">{{ item }}</p>
+      </div>
     </div>
 </template>
 
 <script>
+  import form from '~/mixins/form'
+
   export default {
+    mixins: [ form ],
+
     data() {
       return {
         email: '',
         password: '',
-        message: '',
         name: ''
       }
     },
@@ -61,51 +69,43 @@
       },
 
       register() {
-        this.$store
+        //エラーメッセージの配列を空に
+        this.deleteErrorMessage()
+
+        //VALIDATION
+        //PASSWORD
+        this.validEmpty(this.password) && this.setErrorMessage('emptyText')
+        this.lengthText(this.password) && this.setErrorMessage('lengthPassword')
+
+        //EMAIL
+        this.validEmpty(this.email) && this.setErrorMessage('emptyText')
+        this.validEmail(this.email) && this.setErrorMessage('emailError')
+
+        //NAME
+        this.validEmpty(this.name) && this.setErrorMessage('emptyText')
+
+        if(!this.errorMessage.length) {
+          this.$store
           .dispatch('signUp', {
               email: this.email,
               password: this.password
           })
           .then(({user}) => {
-             this.$store.dispatch('registerUserDoc', {
-                 collectionName: 'users',
-                 uniqueID: user.uid,
-                 userName: this.name
+            this.$store.dispatch('registerUserDoc', {
+                collectionName: 'users',
+                uniqueID: user.uid,
+                userName: this.name
                 })
           })
           .then(() => {
               this.email = ''
               this.password = ''
               this.name = ''
-              this.$router.push({
-                  name: 'dashboard',
-                  // params: {
-                  //     dashboard_msg: true,
-                  //     dashboard_msg_text:
-                  //         'アカウントの登録が完了しました。'
-                  // }
-              })
+              this.$router.push({name: 'dashboard'})
           })
           .catch((err) => {
             this.setErrorMessage(err.code)
-            console.log(err)
           })
-      },
-
-      setErrorMessage(errorCode) {
-        switch (errorCode) {
-          case 'auth/invalid-email':
-            this.message = 'メールアドレスの形式に誤りがあります。'
-            break
-          case 'auth/email-already-in-use':
-            this.message = '入力されたメールアドレスは既に使用されています。'
-            break
-          case 'auth/weak-password':
-            this.message = 'パスワードは6文字以上で入力してください。'
-            break
-          default:
-            this.message = '新規登録に失敗しました。'
-            break
         }
       }
     }
