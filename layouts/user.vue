@@ -15,7 +15,7 @@
 
         <div class="profile">
           <div class="profile__image">
-            <img src="~/assets/image/logo/logo_ants.svg">
+            <img src="~/assets/image/icon/icon_user03.svg">
           </div>
           <div class="profile__name">{{ userName }}</div>
         </div>
@@ -149,7 +149,7 @@
         }
 
         &__image {
-          width: 25px;
+          width: 30px;
           margin-right: 15px;
 
           img {

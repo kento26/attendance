@@ -2,7 +2,7 @@
 デバック アカウント
 
 test@test.com
-sample
+ユーザー01
 test0129384756
 
 testtest@test.com
