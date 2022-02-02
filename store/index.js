@@ -10,6 +10,7 @@ export const state = () => ({
   user: null,
   // 名前など認証以外のデータ
   userDoc: null,
+  test: ''
 })
 
 export const mutations = {
@@ -19,6 +20,14 @@ export const mutations = {
 
   setUserDoc(state, payload) {
     state.userDoc = payload
+  },
+
+  setTest(state, payload) {
+    state.test = payload
+  },
+
+  getTest(state, payload) {
+    state.test = payload
   }
 }
 

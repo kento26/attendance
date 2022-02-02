@@ -7,7 +7,7 @@ export default ({
   route,
   redirect
 }) => {
-  if (!store.getters.isAuthenticated && route.name !== 'index') {
-    redirect('/')
-  }
+  // if (!store.getters.isAuthenticated && route.name !== 'index') {
+  //   redirect('/')
+  // }
 }

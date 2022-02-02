@@ -26,6 +26,8 @@
 
     methods: {
       attendanceAction(target) {
+
+        console.log(this.$store.state.test);
         //まだ押してない場合のみ押せる
         if(!this.flag) return
 

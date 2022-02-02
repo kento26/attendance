@@ -45,6 +45,8 @@
 
     methods: {
       edit() {
+        this.$store.commit('setTest', 'testt');
+
         this.deleteErrorMessage()
         this.validEmpty(this.name) && this.setErrorMessage('emptyText')
         this.sameText(this.name, this.userName) && this.setErrorMessage('sameError')
