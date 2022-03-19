@@ -3,21 +3,21 @@
       <h2 class="formUnit__title">LOGIN</h2>
 
       <div class="formUnit__item">
-        <label class="formUnit-item-text" for="email">MAIL</label>
+        <label class="formUnit-item-text" for="loginEmail">MAIL</label>
         <input
           type="email"
           name="email"
-          id="email"
+          id="loginEmail"
           v-model="email"
         >
       </div>
 
       <div class="formUnit__item">
-        <label class="formUnit-item-text" for="password">PASSWORD</label>
+        <label class="formUnit-item-text" for="loginPassword">PASSWORD</label>
         <input
          type="password"
          name="password"
-         id="password"
+         id="loginPassword"
          placeholder="6 characters or more"
          v-model="password"
          >
