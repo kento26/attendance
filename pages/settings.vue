@@ -1,9 +1,9 @@
 <template>
   <div class="setting">
     <div class="setting__row">
-       <div class="setting__unit">
+       <!-- <div class="setting__unit">
         <Delete />
-      </div>
+      </div> -->
 
        <div class="setting__unit">
         <Edit />
